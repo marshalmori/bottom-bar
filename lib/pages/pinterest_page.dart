@@ -1,18 +1,22 @@
 import 'package:bottom_bar/widgets/pinterest_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:provider/provider.dart';
 
 class PinterestPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      //body: PinterestGrid(),
-      //body: PinterestMenu(),
-      body: Stack(
-        children: [
-          PinterestGrid(),
-          _PinterestLocationMenu(),
-        ],
+    return ChangeNotifierProvider(
+      create: (_) => _MenuModel(),
+      child: Scaffold(
+        //body: PinterestGrid(),
+        //body: PinterestMenu(),
+        body: Stack(
+          children: [
+            PinterestGrid(),
+            _PinterestLocationMenu(),
+          ],
+        ),
       ),
     );
   }
@@ -22,12 +26,17 @@ class _PinterestLocationMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pageWidth = MediaQuery.of(context).size.width;
+
+    final showMenu = Provider.of<_MenuModel>(context).showMenu;
+
     return Positioned(
       bottom: 30,
       child: Container(
         width: pageWidth,
         child: Align(
-          child: PinterestMenu(),
+          child: PinterestMenu(
+            showMenu: showMenu,
+          ),
         ),
       ),
     );
@@ -49,9 +58,9 @@ class _PinterestGridState extends State<PinterestGrid> {
   void initState() {
     controller.addListener(() {
       if (controller.offset > beforeScrool) {
-        print('Mostrar menu');
+        Provider.of<_MenuModel>(context, listen: false).showMenu = false;
       } else {
-        print('Ocultar Menu');
+        Provider.of<_MenuModel>(context, listen: false).showMenu = true;
       }
     });
     super.initState();
@@ -96,5 +105,16 @@ class _PinterestItem extends StatelessWidget {
             child: Text('$index'),
           ),
         ));
+  }
+}
+
+class _MenuModel with ChangeNotifier {
+  bool _showMenu = true;
+
+  bool get showMenu => this._showMenu;
+
+  set showMenu(bool value) {
+    this._showMenu = value;
+    notifyListeners();
   }
 }
