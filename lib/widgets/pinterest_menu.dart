@@ -16,35 +16,38 @@ class PinterestMenu extends StatelessWidget {
   final Color backgroundColorMenu;
   final Color activeIconBackgroundColor;
   final Color inactiveIconBackgroundColor;
+  final List<PinterestButton> items;
 
-  PinterestMenu(
-      {this.showMenu = true,
-      this.backgroundColorMenu = Colors.white,
-      this.activeIconBackgroundColor = Colors.black,
-      this.inactiveIconBackgroundColor = Colors.blueGrey});
+  PinterestMenu({
+    this.showMenu = true,
+    this.backgroundColorMenu = Colors.white,
+    this.activeIconBackgroundColor = Colors.black,
+    this.inactiveIconBackgroundColor = Colors.blueGrey,
+    @required this.items,
+  });
 
-  final List<PinterestButton> items = [
-    PinterestButton(
-        icon: Icons.pie_chart,
-        onPressed: () {
-          print('Icon pie_chart');
-        }),
-    PinterestButton(
-        icon: Icons.search,
-        onPressed: () {
-          print('Icon search');
-        }),
-    PinterestButton(
-        icon: Icons.notifications,
-        onPressed: () {
-          print('Icon notifications');
-        }),
-    PinterestButton(
-        icon: Icons.supervised_user_circle,
-        onPressed: () {
-          print('Icon supervised_user_circle');
-        }),
-  ];
+  // final List<PinterestButton> items = [
+  // PinterestButton(
+  //     icon: Icons.pie_chart,
+  //     onPressed: () {
+  //       print('Icon pie_chart');
+  //     }),
+  // PinterestButton(
+  //     icon: Icons.search,
+  //     onPressed: () {
+  //       print('Icon search');
+  //     }),
+  // PinterestButton(
+  //     icon: Icons.notifications,
+  //     onPressed: () {
+  //       print('Icon notifications');
+  //     }),
+  // PinterestButton(
+  //     icon: Icons.supervised_user_circle,
+  //     onPressed: () {
+  //       print('Icon supervised_user_circle');
+  //     }),
+  // ];
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
